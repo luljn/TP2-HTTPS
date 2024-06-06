@@ -20,4 +20,4 @@ def print_perms(filename: str):
     print(pem.parse_file(filename)[0])
     return
     
-print_perms(CA_PUBLIC_KEY_FILENAME)
+print_perms(SERVER_PUBLIC_KEY_FILENAME)

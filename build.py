@@ -6,7 +6,7 @@ Created on May 2022
 
 """
 
-from tools.core import Configuration
+from tools.core import Configuration, generate_csr
 from ca.core import CertificateAuthority
 from server.core import Server
 import print_pems as ppems  #a été ajouté pour l'impression
@@ -28,11 +28,11 @@ certificate_authority = CertificateAuthority(CA_CONFIGURATION, CA_PASSWORD, CA_P
     # regardez en haut et ca/core.py
 
 # Création du server
-server =Server(CA_CONFIGURATION, CA_PASSWORD, CA_PRIVATE_KEY_FILENAME, SERVER_CSR_FILENAME)
+server =Server(SERVER_CONFIGURATION, SERVER_PASSWORD, SERVER_PRIVATE_KEY_FILENAME, SERVER_CSR_FILENAME)
     # regardez en haut et server/core.py
 
 # Signature du certificat par l'autorité de certification
-signed_certificate = certificate_authority.sign(certificate_authority.sign(), CA_PRIVATE_KEY_FILENAME)
+signed_certificate = certificate_authority.sign(server.get_csr(), SERVER_PUBLIC_KEY_FILENAME)
 
 #impression des certificats à compléter regardez #print_pems
 
