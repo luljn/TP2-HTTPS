@@ -17,7 +17,8 @@ SERVER_PUBLIC_KEY_FILENAME = RESOURCES_DIR + "server-public-key.pem"
 
 
 def print_perms(filename: str):
-    print(pem.parse_file(filename)[0])
-    return
+    # print(pem.parse_file(filename)[0])
+    print(pem.parse_file(filename))
+    # return
     
-print_perms(SERVER_PUBLIC_KEY_FILENAME)
+# print_perms(SERVER_PUBLIC_KEY_FILENAME)
