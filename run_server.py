@@ -6,22 +6,47 @@ Created on May 2022
 
 """
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for
+import sqlite3
 
 # définir le message secret
 SECRET_MESSAGE = "Azertyuiop_1234!#qprtt"
 app = Flask(__name__)
+app.config['DATABASE'] = "lib/database.sql"
 
 def get_secret_message():
     return SECRET_MESSAGE
 
-@app.route("/")
+def getDatabase():
+    
+    return sqlite3.connect(app.config['DATABASE'])
+
+@app.route("/", methods = ['GET', 'POST'])
 def login():
+    
+    if(request.method == 'POST'):
+        email = request.form['email']
+        password = request.form['password']
+        conn = getDatabase()
+        cursor = conn.cursor()
+        
+        cursor.execute('SELECT email, password FROM users WHERE email = ?', (email,))
+        user = cursor.fetchone()
+        
+        if user and user[1] == password:
+           return render_template("home.html", message = get_secret_message())
+        
+        return render_template("login.html")
+    
     return render_template("login.html")
 
 @app.route("/home")
 def getHome():
-    return render_template("home.html")
+    return render_template("home.html", message = get_secret_message())
+
+@app.route("/logout")
+def logout():
+    return render_template("login.html")
 
 if __name__ == "__main__":
     # HTTP version
