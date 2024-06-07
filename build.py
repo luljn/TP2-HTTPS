@@ -35,8 +35,7 @@ server =Server(SERVER_CONFIGURATION, SERVER_PASSWORD, SERVER_PRIVATE_KEY_FILENAM
 signed_certificate = certificate_authority.sign(server.get_csr(), SERVER_PUBLIC_KEY_FILENAME)
 
 #impression des certificats à compléter regardez #print_pems
-
-
-
+ppems.print_perms(CA_PUBLIC_KEY_FILENAME)
+ppems.print_perms(SERVER_PUBLIC_KEY_FILENAME)
 
 print("finished ...")
