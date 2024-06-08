@@ -8,6 +8,7 @@ Created on May 2022
 
 from flask import Flask, render_template, request, url_for
 import sqlite3
+import hashlib
 
 # définir le message secret
 SECRET_MESSAGE = "Azertyuiop_1234!#qprtt"
@@ -33,7 +34,7 @@ def login():
         cursor.execute('SELECT email, password FROM users WHERE email = ?', (email,))
         user = cursor.fetchone()
         
-        if user and user[1] == password:
+        if user and user[1] == hashlib.md5(password.encode()).hexdigest():
            return render_template("home.html", message = get_secret_message())
         
         return render_template("login.html")
