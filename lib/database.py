@@ -13,7 +13,7 @@ def initDatabase():
         )
     ''')
     
-    query_1 = "INSERT INTO users (email, password) VALUES (\"mbohlula@gmail.com\", \"aa9c7c8c5992ee282a0962b072085048\");"
+    query_1 = "INSERT INTO users (email, password) VALUES (\"mbohlula@gmail.com\", \"748713b28662fec78cac7cdb31e76f0ce8cc1902837e4d15e5564bcc3fe99da7\");"
     cursor.execute(query_1)
     
     conn.commit()

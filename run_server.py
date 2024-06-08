@@ -6,7 +6,7 @@ Created on May 2022
 
 """
 
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import hashlib
 
@@ -34,8 +34,9 @@ def login():
         cursor.execute('SELECT email, password FROM users WHERE email = ?', (email,))
         user = cursor.fetchone()
         
-        if user and user[1] == hashlib.md5(password.encode()).hexdigest():
-           return render_template("home.html", message = get_secret_message())
+        if user and user[1] == hashlib.sha256(password.encode()).hexdigest():
+        #    return render_template("home.html", message = get_secret_message())
+            return redirect("/home")
         
         return render_template("login.html")
     
@@ -47,7 +48,7 @@ def getHome():
 
 @app.route("/logout")
 def logout():
-    return render_template("login.html")
+    return redirect("/")
 
 if __name__ == "__main__":
     # HTTP version
