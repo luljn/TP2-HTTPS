@@ -6,7 +6,7 @@ Created on May 2022
 
 """
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 import sqlite3
 import hashlib
 
@@ -35,10 +35,9 @@ def login():
         user = cursor.fetchone()
         
         if user and user[1] == hashlib.sha256(password.encode()).hexdigest():
-        #    return render_template("home.html", message = get_secret_message())
             return redirect("/home")
         
-        return render_template("login.html")
+        return render_template("login.html", errorMessage = "Adresse mail et/ou mot de passe incorrect(s)")
     
     return render_template("login.html")
 
